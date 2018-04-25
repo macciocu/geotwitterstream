@@ -8,6 +8,8 @@ from requests.exceptions import ConnectionError, ReadTimeout, SSLError
 from requests.packages.urllib3.exceptions import ReadTimeoutError, ProtocolError
 from requests_oauthlib import OAuth1
 
+from .server import WebsocketServerFactory
+
 import base64
 import cStringIO
 import httplib
@@ -27,6 +29,14 @@ import logging
 USER_AGENT = 'geotwitterstream v1.0'
 RESOURCE_URL = 'https://stream.twitter.com/1.1/statuses/filter.json?locations='
 STREAM_TIMEOUT_SECONDS = 100
+
+
+class GeoTwitterStreamAPI(object):
+    def __init__(self, config):
+        self._auth = GeoTwitterStreamAuth(cfg['CONSUMER_KEY'], cfg['CONSUMER_SECRET'],
+                cfg['ACCESS_TOK'], cfg['ACCESS_TOK_SECRET'])
+
+        self._server = WebSocketSErverFactory().create(cfg['SERVER_CONNECT_PATH'])
 
 
 class GeoTwitterStreamAuth(object):

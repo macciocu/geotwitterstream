@@ -24,8 +24,8 @@ def test_websocketserver():
 
 
 def test_geotwitterstreamauth():
-    auth = GeoTwitterStreamAuth(CREDENTIALS['CONSUMER_KEY'], CREDENTIALS['CONSUMER_SECRET'],
-            CREDENTIALS['ACCESS_TOK'], CREDENTIALS['ACCESS_TOK_SECRET'])
+    auth = GeoTwitterStreamAuth(CFG['CONSUMER_KEY'], CFG['CONSUMER_SECRET'], CFG['ACCESS_TOK'],
+            CFG['ACCESS_TOK_SECRET'], CFG['SERVER_CONNECT_PATH'])
 
     geobox = GeoTwitterStreamBoundingBox()
     iter = auth.request_streaming_iterator(geobox)
