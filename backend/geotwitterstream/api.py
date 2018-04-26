@@ -10,6 +10,8 @@ from requests_oauthlib import OAuth1
 
 from .server import WebsocketServerFactory
 
+from enum import Enum
+
 import base64
 import cStringIO
 import httplib
@@ -25,18 +27,42 @@ import socket
 import ssl
 import time
 import logging
+import datetime
 
 USER_AGENT = 'geotwitterstream v1.0'
 RESOURCE_URL = 'https://stream.twitter.com/1.1/statuses/filter.json?locations='
 STREAM_TIMEOUT_SECONDS = 100
 
 
-class GeoTwitterStreamAPI(object):
-    def __init__(self, config):
-        self._auth = GeoTwitterStreamAuth(cfg['CONSUMER_KEY'], cfg['CONSUMER_SECRET'],
-                cfg['ACCESS_TOK'], cfg['ACCESS_TOK_SECRET'])
+class GeoTwitterStreamServiceStatusCode(Enum):
+    IDLE = 0
+    RUNNING = 1
+    ERROR = 2
 
-        self._server = WebSocketSErverFactory().create(cfg['SERVER_CONNECT_PATH'])
+
+class GeoTwitterStreamServiceStatus(object):
+    def __init__(self, status_code, status_message)
+        self.status_code = status_code;
+        self.status_message = status_message
+
+
+class GeoTwitterStreamService(object):
+    def __init__(self, config):
+        self._auth = GeoTwitterStreamAuth(config['CONSUMER_KEY'], config['CONSUMER_SECRET'],
+                config['ACCESS_TOK'], config['ACCESS_TOK_SECRET'])
+
+        self._server = WebsocketServerImpl(config['SERVER_HOST'], config['SERVER_PORT'])
+
+    def status():
+        return (self._status_code, self.status_message)
+
+    def start():
+        self._status_code = self.RUNNING
+        self._status_message = 'Started at: %s' % (datetime.datetime.now())
+
+    def stop():
+        self._status_code = self.IDLE
+        self._status_message = 'Stopped at: %s' % (datetime.datetime.now)
 
 
 class GeoTwitterStreamAuth(object):

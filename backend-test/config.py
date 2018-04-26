@@ -8,5 +8,6 @@ CONFIG = {
     'ACCESS_TOK_SECRET': 'Px3qOO1js9icEmwqcGGc0q1izDCUMg88PrSD5vuv6sPLL',
     # this is where the server connection details (i.e. host:port) is writen upon backend
     # application startup; this path is hardcoded in the frontend application
-    'SERVER_CONNECT_PATH': '/tmp/geotwitterstream_server.out'
+    'SERVER_HOST': 'localhost',
+    'SERVER_PORT': 2000
 }
