@@ -1,7 +1,7 @@
 
 backend requirements:
 
-$ pip install requests requests_oautlib websocket-server
+$ pip install requests requests_oautlib websocket-server enum34
 
 frontend:
 

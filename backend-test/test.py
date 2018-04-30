@@ -4,28 +4,26 @@ import logging
 import os
 import sys
 
-# file directory package imports
-from credentials import *
-
 # relative directory package module imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../backend/')
 from geotwitterstream import GeoTwitterStreamAuth
 from geotwitterstream import GeoTwitterStreamBoundingBox
 from geotwitterstream import GeoTwitterStreamTweet
+from geotwitterstream import GeoTwitterStreamService
 
 # relative directory module imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../backend/geotwitterstream')
-from server import WebsocketServerFactory
+from server import *
+from config import *
 
 
 def test_websocketserver():
-    wssfactory = WebsocketServerFactory()
-    wss = wssfactory.create()
+    server = WebsocketServerImpl(CONFIG['SERVER_HOST'], CONFIG['SERVER_PORT'])
 
 
 def test_geotwitterstreamauth():
-    auth = GeoTwitterStreamAuth(CFG['CONSUMER_KEY'], CFG['CONSUMER_SECRET'], CFG['ACCESS_TOK'],
-            CFG['ACCESS_TOK_SECRET'], CFG['SERVER_CONNECT_PATH'])
+    auth = GeoTwitterStreamAuth(CONFIG['CONSUMER_KEY'], CONFIG['CONSUMER_SECRET'],
+            CONFIG['ACCESS_TOK'], CONFIG['ACCESS_TOK_SECRET'], CONFIG['SERVER_CONNECT_PATH'])
 
     geobox = GeoTwitterStreamBoundingBox()
     iter = auth.request_streaming_iterator(geobox)
@@ -38,12 +36,20 @@ def test_geotwitterstreamauth():
         print('')
 
 
+def test_geotwitterstreamservice():
+    service = GeoTwitterStreamService()
+    service.start()
+
+
 if __name__ == "__main__":
     logging.basicConfig()
     logging.getLogger().setLevel(logging.DEBUG)
 
-    logging.debug('test_websocketserver')
-    test_websocketserver()
+    #logging.debug('test_websocketserver')
+    #test_websocketserver()
 
-    logging.debug('test_geotwitterstreamauth')
-    test_geotwitterstreamauth()
+    #logging.debug('test_geotwitterstreamauth')
+    #test_geotwitterstreamauth()
+
+    logging.debug('test_geotwitterstreamservice')
+    test_geotwitterstreamservice()

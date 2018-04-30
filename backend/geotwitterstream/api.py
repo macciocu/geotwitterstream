@@ -8,7 +8,8 @@ from requests.exceptions import ConnectionError, ReadTimeout, SSLError
 from requests.packages.urllib3.exceptions import ReadTimeoutError, ProtocolError
 from requests_oauthlib import OAuth1
 
-from .server import WebsocketServerFactory
+from .server import WebsocketServerImpl
+from .config import *
 
 from enum import Enum
 
@@ -41,27 +42,33 @@ class GeoTwitterStreamServiceStatusCode(Enum):
 
 
 class GeoTwitterStreamServiceStatus(object):
-    def __init__(self, status_code, status_message)
+    def __init__(self, status_code, status_message):
         self.status_code = status_code;
         self.status_message = status_message
 
 
 class GeoTwitterStreamService(object):
-    def __init__(self, config):
-        self._auth = GeoTwitterStreamAuth(config['CONSUMER_KEY'], config['CONSUMER_SECRET'],
-                config['ACCESS_TOK'], config['ACCESS_TOK_SECRET'])
+    def __init__(self):
+        self._auth = GeoTwitterStreamAuth(CONFIG['CONSUMER_KEY'], CONFIG['CONSUMER_SECRET'],
+                CONFIG['ACCESS_TOK'], CONFIG['ACCESS_TOK_SECRET'])
 
-        self._server = WebsocketServerImpl(config['SERVER_HOST'], config['SERVER_PORT'])
+        self._wss = WebsocketServerImpl(CONFIG['SERVER_HOST'], CONFIG['SERVER_PORT'])
+        self._wss.register_rxhandle('set_geo', self.set_geo)
 
-    def status():
+    def set_geo(self, data):
+        print('set_get '+str(data)) # TODO
+
+    def status(self):
         return (self._status_code, self.status_message)
 
-    def start():
-        self._status_code = self.RUNNING
+    def start(self, geoTwitterStreamBoundingBox):
+        self._status_code = GeoTwitterStreamServiceStatusCode.RUNNING
         self._status_message = 'Started at: %s' % (datetime.datetime.now())
+        # TODO send stream to server in separate thread, or something like that
+        return self._auth.request_streaming_iterator(geoTwitterStreamBoundingBox)
 
-    def stop():
-        self._status_code = self.IDLE
+    def stop(self):
+        self._status_code = GeoTwitterStreamServiceStatusCode.IDLE
         self._status_message = 'Stopped at: %s' % (datetime.datetime.now)
 
 
