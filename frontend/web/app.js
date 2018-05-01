@@ -16,11 +16,16 @@ let latB = null;
 let longB = null;
 
 function onclickSetLocation() {
+    let latA = document.getElementById('id-latitude_a').value;
+    let longA = document.getElementById('id-longitude_a').value;
+    let latB = document.getElementById('id-latitude_b').value;
+    let longB = document.getElementById('id-longitude_b').value;
+
     let tail =
-        '?lat-a='+document.getElementById('id-latitude_a').value+
-        '&long-a='+document.getElementById('id-longitude_a').value+
-        '&lat-b='+document.getElementById('id-latitude_b').value+
-        '&long-b='+document.getElementById('id-longitude_b').value;
+        '?lat-a='+latA+
+        '&long-a='+longA+
+        '&lat-b='+latB+
+        '&long-b='+longB;
 
     let urlSplit = window.location.href.split('?');
     if (urlSplit.length > 1) {

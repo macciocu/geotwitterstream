@@ -40,3 +40,7 @@ p.mono {
 div#id-tweets {
     padding-top: 10px;
 }
+
+table.helper {
+    font: 10px/10px 'AmbleRegular';
+}
