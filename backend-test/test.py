@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+'''
+file: test.py
+author: Giovanni Macciocu
+date: Tue May  1 07:23:29 2018
+'''
+
 import logging
 import os
 import sys
@@ -7,15 +13,15 @@ import time
 
 # relative directory package module imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../backend/')
-from geotwitterstream import GeoTwitterStreamAuth
-from geotwitterstream import GeoTwitterStreamBoundingBox
-from geotwitterstream import GeoTwitterStreamTweet
 from geotwitterstream import GeoTwitterStreamService
 
 # relative directory module imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../backend/geotwitterstream')
-from server import *
+from auth import GeoTwitterStreamAuth
 from config import *
+from server import *
+from tweet import TweetCoord
+from tweet import TweetMessage
 
 
 def test_websocketserver():
@@ -24,12 +30,12 @@ def test_websocketserver():
 
 def test_geotwitterstreamauth():
     auth = GeoTwitterStreamAuth(CONFIG['CONSUMER_KEY'], CONFIG['CONSUMER_SECRET'],
-            CONFIG['ACCESS_TOK'], CONFIG['ACCESS_TOK_SECRET'], CONFIG['SERVER_CONNECT_PATH'])
+            CONFIG['ACCESS_TOK'], CONFIG['ACCESS_TOK_SECRET'])
 
-    geobox = GeoTwitterStreamBoundingBox()
+    geobox = TweetCoord()
     iter = auth.request_streaming_iterator(geobox)
     for tweetDict in iter:
-        tweet = GeoTwitterStreamTweet(tweetDict)
+        tweet = TweetMessage(tweetDict)
         print(tweet.userinfo())
         print(tweet.message())
         print(tweet.locationinfo())
@@ -39,7 +45,7 @@ def test_geotwitterstreamauth():
 
 def test_geotwitterstreamservice():
     service = GeoTwitterStreamService()
-    service.start(GeoTwitterStreamBoundingBox())
+    service.start()
     while True:
         time.sleep(10)
 
