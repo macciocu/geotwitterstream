@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>GeoTwitterStream</title>
     <base target="_self"/>
+    <link rel=Stylesheet type="text/css" media=screen href="css/fonts.css">
+    <link rel=Stylesheet type="text/css" media=screen href="css/style.css">
     <script src="lib/websockclient.js"></script>
     <!--
     <script src="windows/MapWin.js"></script>
@@ -13,5 +15,47 @@
     <script src="app.js"></script>
 </head>
 <body>
+    <table>
+        <tr>
+            <td rowspan="2">
+                <p class="mono">
+                    <b>(A)</b>&nbsp;+--+<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;|<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;+--+&nbsp;<b>(B)</b>
+                </p>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td rowspan="2"><b>(A)</b></td>
+                        <td>Latitude:</td>
+                        <td><input type="number" id="id-latitude_a" class="latitude" min="-90.00" max="90.00"></td>
+                    </tr>
+                    <tr>
+                        <td>Longitude:</td>
+                        <td><input type="number" id="id-longitude_a" class="longitude" min="-180.00" max="180.00"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td rowspan="2"><b>(B)</b></td>
+                        <td>Latitude:</td>
+                        <td><input type="number" id="id-latitude_b" class="latitude" min="-90.00" max="90.00"></td>
+                    </tr>
+                    <tr>
+                        <td>Longitude:</td>
+                        <td><input type="number" id="id-longitude_b" class="longitude" min="-180.00" max="180.00"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right; vertical-align:bottom">
+                <input type="button" value="Set Location" onclick="onclickSetLocation()">
+            </td>
+        </tr>
+    </table>
+    <div id="id-tweets">
+    </div>
 </body>
 </html>

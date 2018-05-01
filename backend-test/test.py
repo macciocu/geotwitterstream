@@ -3,6 +3,7 @@
 import logging
 import os
 import sys
+import time
 
 # relative directory package module imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../backend/')
@@ -29,16 +30,18 @@ def test_geotwitterstreamauth():
     iter = auth.request_streaming_iterator(geobox)
     for tweetDict in iter:
         tweet = GeoTwitterStreamTweet(tweetDict)
-        tweet.print_userinfo()
-        tweet.print_message()
-        tweet.print_locationinfo()
-        tweet.print_locationcoord()
+        print(tweet.userinfo())
+        print(tweet.message())
+        print(tweet.locationinfo())
+        print(tweet.locationcoord())
         print('')
 
 
 def test_geotwitterstreamservice():
     service = GeoTwitterStreamService()
-    service.start()
+    service.start(GeoTwitterStreamBoundingBox())
+    while True:
+        time.sleep(10)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,42 @@
+
+html, body {
+    font: 14px/20px 'AmbleRegular';
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 9px 3px; /* hor. vert. */
+}
+
+h2 {
+    font: 14px/14px 'DejaVuSerifBook';
+}
+
+h3 {
+    font: 11px/11px 'DejaVuSerifBook';
+    margin: 0; /* t r b l */
+    padding: 0;
+}
+
+td {
+    vertical-align: top;
+    text-align: left;
+}
+
+input[type=number] {
+    font: 12px/12px 'DroidSansMono';
+    width: 70px;
+}
+
+p {
+    padding: 0; /* t r b l */
+    margin: 3px 0 0 0; /* t r b l */
+}
+
+p.mono {
+    font: 12px/12px 'DroidSansMono';
+}
+
+div#id-tweets {
+    padding-top: 10px;
+}

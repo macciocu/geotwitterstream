@@ -1,23 +1,27 @@
 /**
- * @file websockclient.js
+ * @file WebsockClient.js
  * @author giovanni macciocu
  * @date 29 May 2016
  */
 
 /**
  * constructor
- * @param host (string) host address (e.g. "localhost" or "127.0.0.1")
- * @param post (number) socket port (e.g. 8000)
- * @param logEn (true / false) console logging enable / disable
+ * @param host {string} host address (e.g. "localhost" or "127.0.0.1")
+ * @param post {number} socket port (e.g. 8000)
+ * @param logEn {bool} console logging enable / disable
+ * @param fpRx {function} callback function which handles incoming data; fp(data)
+ * @param fpOnOpen (function} callback function which handles websocket onopen event; fp()
  */
-function Websockclient(host, port, logEn) {
-    this.ws = null;
+function WebsockClient(host, port, logEn, fpRx, fpOnOpen) {
+    this.ws = null; // WebSocket
     this.host = host;
     this.port = port;
     this.logEn = logEn;
+    this.fpRx = fpRx;
+    this.fpOnOpen= fpOnOpen;
 }
 
-Websockclient.prototype.connect = function() {
+WebsockClient.prototype.connect = function() {
     if (!("WebSocket" in window)) {
         alert("WebSocket is NOT supported!");
     } else {
@@ -30,36 +34,37 @@ Websockclient.prototype.connect = function() {
     }
 };
 
-Websockclient.prototype.disconnect = function() {
+WebsockClient.prototype.disconnect = function() {
     this.ws.close();
 };
 
-Websockclient.prototype.log = function(message) {
-    if (this.logEn == true) {
-        trace.info(message);
+WebsockClient.prototype.log = function(message) {
+    if (this.logEn === true) {
+        console.log(message);
     }
 };
 
-Websockclient.prototype.onOpen = function(evt) {
+WebsockClient.prototype.onOpen = function(evt) {
     this.log("connected");
-    this.tx("Client says Hi!");
+    this.tx('{"message":"Client says Hi!"}');
+    this.fpOnOpen();
 };
 
-Websockclient.prototype.onClose = function(evt) {
+WebsockClient.prototype.onClose = function(evt) {
     this.log("disconnected");
 };
 
-Websockclient.prototype.rx = function(evt) {
+WebsockClient.prototype.rx = function(evt) {
     this.log("Rx: " + evt.data);
+    this.fpRx(evt.data);
 };
 
-Websockclient.prototype.onError = function(evt) {
+WebsockClient.prototype.onError = function(evt) {
     this.ws.close()
     alert("Websocket client error: " + evt.data);
 };
 
-Websockclient.prototype.tx = function(message) {
+WebsockClient.prototype.tx = function(message) {
     this.log("Tx: " + message);
     this.ws.send(message);
 };
-

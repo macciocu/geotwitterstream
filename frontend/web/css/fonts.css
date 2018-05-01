@@ -1,0 +1,40 @@
+/**
+ * @file fonts.css
+ * @author giovanni macciocu
+ * @date 31 May 2016
+ */
+
+@font-face {
+  font-family: 'AmbleRegular';
+  src: url('../css/amble/Amble-Regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-css: normal;
+}
+
+@font-face {
+    font-family: 'AmbleBold';
+         url('../css/amble/Amble-Bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-css: normal;
+}
+
+@font-face {
+  font-family: 'DejaVuSerifBook';
+  src: url('../css/serif/DejaVuSerif-webfont.woff') format('woff');
+  font-weight: normal;
+  font-css: normal;
+}
+
+@font-face {
+  font-family: 'DejaVuSerifBookItalic';
+  src: url('../css/serif/DejaVuSerif-Italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-css: normal;
+}
+
+@font-face {
+	font-family: 'DroidSansMono';
+	src: url('../css/droid/DroidSansMono.woff') format('woff');
+	font-weight: normal;
+	font-css: normal;
+}
